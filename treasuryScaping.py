@@ -34,6 +34,14 @@ if __name__ == '__main__':
 # <d:NEW_DATE m:type="Edm.DateTime">2013-12-02T00:00:00</d:NEW_DATE>
 # find <d:NEW_DATE m:type="Edm.DateTime"> and get things after that.
 
-# url = 'http://data.treasury.gov/feed.svc/DailyTreasuryYieldCurveRateData?$filter=month(NEW_DATE)%20eq%2012%20and%20year(NEW_DATE)%20eq%202013'
-# soup = make_soup(url)
-# the function soup.find_all(...) may help
+    treasuryurl = 'http://data.treasury.gov/feed.svc/DailyTreasuryYieldCurveRateData?$filter=month(NEW_DATE)%20eq%2012%20and%20year(NEW_DATE)%20eq%202013'
+    soup = make_soup(treasuryurl)
+    # print soup
+    # the function soup.find_all(...) may help
+    tagdate = soup.find_all('d:new_date')
+    date = []
+    for tag in tagdate:
+        date.append(tag.text)
+    print date
+    # tag1m = soup.find_all('d:bc_1month')
+    # tag3m = soup.find_all('d:BC_3MONTH')
