@@ -26,5 +26,14 @@ if __name__ == '__main__':
 
     temp_yield = soup.find("").encode_contents().strip()
     # print type(temp_yield)
-    print temp_yield
+    # print temp_yield
 
+
+# you need to find the tag in the source code...
+# the url should be http://data.treasury.gov/feed.svc/DailyTreasuryYieldCurveRateData?$filter=month(NEW_DATE)%20eq%2012%20and%20year(NEW_DATE)%20eq%202013
+# <d:NEW_DATE m:type="Edm.DateTime">2013-12-02T00:00:00</d:NEW_DATE>
+# find <d:NEW_DATE m:type="Edm.DateTime"> and get things after that.
+
+# url = 'http://data.treasury.gov/feed.svc/DailyTreasuryYieldCurveRateData?$filter=month(NEW_DATE)%20eq%2012%20and%20year(NEW_DATE)%20eq%202013'
+# soup = make_soup(url)
+# the function soup.find_all(...) may help
