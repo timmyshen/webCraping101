@@ -133,11 +133,45 @@ def multi_valued_attributes_example():
     # u'body strikeout'
 
 
+def navigable_string_example():
+    nav_soup = BeautifulSoup('<b class="boldest">Extremely bold</b>')
+    tag = nav_soup.b
+    print tag.string
+    # u'Extremely bold'
+    print type(tag.string)
+
+    unicode_string = unicode(tag.string)
+    print unicode_string
+    # u'Extremely bold'
+    print type(unicode_string)
+
+    tag.string.replace_with("No longer bold")
+    print tag
+
+
+def comment_example():
+    markup = "<b><!--Hey, buddy. Want to buy a used parser?--></b>"
+    comment_soup = BeautifulSoup(markup)
+    comment = comment_soup.b.string
+    print type(comment)
+    print comment
+    # <class 'bs4.element.Comment'>
+    # The Comment object is just a special type of NavigableString
+    print(comment_soup.b.prettify())
+
+    from bs4 import CData
+
+    cdata = CData("A CDATA block")
+    comment.replace_with(cdata)
+
+    print(comment_soup.b.prettify())
+
+
 if __name__ == '__main__':
     print info()
 
     # First example
-    # soup = BeautifulSoup(html_doc)
+    soup = BeautifulSoup(html_doc)
     # print(soup.prettify())
     # navigate_data_structure(soup)
     # extract_all_a_tags(soup)
@@ -146,4 +180,9 @@ if __name__ == '__main__':
     # Tag example
     # tag_example()
 
-    multi_valued_attributes_example()
+    # multi_valued_attributes_example()
+
+    # navigable_string_example()
+    # comment_example()
+
+    # Navigating the tree
