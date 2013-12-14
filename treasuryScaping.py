@@ -24,10 +24,20 @@ if __name__ == '__main__':
 
     soup = make_soup(link)
     # print soup.prettify()
-    print soup.table
-    # temp_yield = soup.find("").encode_contents().strip()
-    # print type(temp_yield)
-    # print temp_yield
+    # soup_table = soup.find_all('table', "class='t-chart'")
+    rows = soup.findAll("tr", {'class': ['oddrow', 'evenrow']})
+
+    # for row in rows:
+    #     print row
+
+    first_row = rows[0]
+    print first_row
+    print type(first_row)
+    print first_row.attrs
+    first_row_all_td = first_row.findAll('td')
+    for one_td in first_row_all_td:
+        print one_td.string
+
     exit()
 
     # you need to find the tag in the source code...
