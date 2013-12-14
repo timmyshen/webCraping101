@@ -96,16 +96,54 @@ def tag_example():
     print tag
     print tag.attrs
 
+    del tag['class']
+    del tag['id']
+    print tag
+
+    # tag['class']
+    # KeyError: 'class'
+    # .get is type/key safe, while [] is not.
+    print(tag.get('class'))
+
+
+def multi_valued_attributes_example():
+    css_soup = BeautifulSoup('<p class="body strikeout"></p>')
+    print css_soup.p
+    print css_soup.p['class']
+    # ["body", "strikeout"]
+
+    css_soup = BeautifulSoup('<p class="body"></p>')
+    print css_soup.p['class']
+    # ["body"]
+
+    # This looks like a multi-value attr, but not
+    id_soup = BeautifulSoup('<p id="my id"></p>')
+    print id_soup.p['id']
+
+    rel_soup = BeautifulSoup('<p>Back to the <a rel="index">homepage</a></p>')
+    print rel_soup.a['rel']
+    # ['index']
+    rel_soup.a['rel'] = ['index', 'contents']
+    print(rel_soup.p)
+    # <p>Back to the <a rel="index contents">homepage</a></p>
+
+    # If you parse a document as XML, there are no multi-valued attributes
+    xml_soup = BeautifulSoup('<p class="body strikeout"></p>', 'xml')
+    print xml_soup.p['class']
+    # u'body strikeout'
+
 
 if __name__ == '__main__':
     print info()
 
     # First example
-    soup = BeautifulSoup(html_doc)
+    # soup = BeautifulSoup(html_doc)
     # print(soup.prettify())
     # navigate_data_structure(soup)
     # extract_all_a_tags(soup)
     # extract_all_text(soup)
 
     # Tag example
-    tag_example()
+    # tag_example()
+
+    multi_valued_attributes_example()
